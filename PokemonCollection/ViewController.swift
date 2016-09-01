@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
+    var pokemons = [Pokemon]()
     @IBOutlet weak var collectionView : UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,26 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
         let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0.0
         layout.minimumInteritemSpacing = 0.0
+        parseCSV()
     }
+    func parseCSV(){
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")!
+        
+        do {
+            let csv = try CSV(contentsOfURL: path)
+            let rows = csv.rows
+            for row in rows {
+                let id = Int(row["id"]!)!
+                let name = row["identifier"]
+                
+                let poke = Pokemon(id: id, name: name!)
+                pokemons.append(poke)
+            }
 
+        }catch{
+            print("Error")
+        }
+            }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -30,11 +49,12 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return pokemons.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell{
-            //cell.configureCell(poke: <#T##Pokemon#>)
+        if let cell = collectionView.dequeue ReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell{
+            let poke = pokemons[indexPath.row]
+            cell.configureCell(poke: poke)
             return cell
         }else{
             return UICollectionViewCell()
