@@ -20,7 +20,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DqJ-LR-tzW">
@@ -145,7 +145,7 @@
                         <viewControllerLayoutGuide type="bottom" id="WPt-Pd-iPI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ydp-6W-Efd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9os-0P-fcT">
@@ -156,6 +156,9 @@
                                             <constraint firstAttribute="width" constant="62" id="UMF-gY-qxa"/>
                                         </constraints>
                                         <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backBtnPressed:" destination="RX6-ph-hr1" eventType="touchUpInside" id="W9J-yl-jlo"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chamender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3I-tF-vv1">
                                         <constraints>
@@ -392,6 +395,20 @@
                             <constraint firstAttribute="trailing" secondItem="GlF-Xg-8Pm" secondAttribute="trailing" constant="10" id="wxy-4g-yb7"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="baseAttackLbl" destination="tNh-ey-byM" id="73g-Ll-iCF"/>
+                        <outlet property="currentImage" destination="pyT-ZV-TOE" id="iwI-9P-L5a"/>
+                        <outlet property="defenseLbl" destination="zDg-hE-0ir" id="pW9-hy-eTV"/>
+                        <outlet property="descriptionLbl" destination="PqS-x9-si5" id="s6m-x8-a05"/>
+                        <outlet property="evolutionImage" destination="GlF-Xg-8Pm" id="0qu-8E-f6D"/>
+                        <outlet property="heightLbl" destination="2ec-NY-CbI" id="Dm6-1I-05R"/>
+                        <outlet property="mainImage" destination="sTB-iC-wlc" id="Dwd-rN-LeG"/>
+                        <outlet property="pokeTitleLbl" destination="H3I-tF-vv1" id="LjX-BB-PiW"/>
+                        <outlet property="pokemonIdLbl" destination="kyQ-vl-qe2" id="U5G-xC-EEl"/>
+                        <outlet property="revolutionLbl" destination="yzn-Nf-nM6" id="D8i-OD-nBN"/>
+                        <outlet property="typeLbl" destination="gfr-lu-61Z" id="x2O-vA-yWD"/>
+                        <outlet property="weightLbl" destination="GjZ-1q-dIt" id="Bmi-Kk-JoB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCP-ml-TIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

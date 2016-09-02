@@ -98,6 +98,15 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
         }
         performSegue(withIdentifier: "DetailPokemonVC", sender: poke)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailPokemonVC"{
+            if let detailVC = segue.destination as? DetailPokemonVC {
+                if let poke = sender as? Pokemon{
+                    detailVC.pokemon = poke
+                }
+            }
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  collectionView.frame.width / 3.3
@@ -121,15 +130,7 @@ class ViewController: UIViewController , UICollectionViewDelegate, UICollectionV
             collectionView.reloadData()
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailPokemonVC"{
-            if let detailVC = segue.destination as? DetailPokemonVC {
-                if let poke = sender as? Pokemon{
-                    detailVC.pokemon = poke
-                }
-            }
-        }
-    }
+
     @IBAction func musicBtnPressed(_ sender: AnyObject) {
         if musicPlayer.isPlaying{
             musicPlayer.pause()
