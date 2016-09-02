@@ -10,10 +10,8 @@ import UIKit
 
 class DetailPokemonVC: UIViewController {
     var pokemon : Pokemon!
-    @IBOutlet weak var label : UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = pokemon.name
-    }
+            }
 
 }
