@@ -14,7 +14,7 @@ class Pokemon{
     
     private var _id : Int!
     private var _name : String!
-    private var _desciption : String!
+    private var _pokeDesciption : String!
     private var _type : String!
     private var _defense : String!
     private var _height : String!
@@ -22,6 +22,21 @@ class Pokemon{
     private var _baseAttack : String!
     private var _revolution : String!
     private var _pokemonURL : String!
+    private var _nextEvelutionID : String!
+    private var _nextEvelutionString : String!
+    
+    var nextEvelutionString : String{
+        if _nextEvelutionString == nil{
+            _nextEvelutionString = ""
+        }
+        return _nextEvelutionString
+    }
+    var nextEvelutionID : String{
+        if _nextEvelutionID == nil{
+            _nextEvelutionID = ""
+        }
+        return _nextEvelutionID
+    }
     var revolution : String{
         return _revolution
     }
@@ -40,8 +55,11 @@ class Pokemon{
         }
         return _defense
     }
-    var description : String{
-        return _desciption
+    var pokeDescription : String{
+        if _pokeDesciption == nil {
+            return ""
+        }
+        return _pokeDesciption
     }
     var type : String{
         return _type
@@ -56,12 +74,9 @@ class Pokemon{
         _id = id
         _name = name
         _pokemonURL = "\(BASE_URL)\(self.id)"
-        print("***************************")
-        print(_pokemonURL)
     }
     
     func downloadData(complete : DownloadComplete){
-      
        Alamofire.request(_pokemonURL, withMethod: .get).responseJSON { (response) in
        // print(response.result.value)
         if let dict = response.result.value as? Dictionary<String,AnyObject>{
@@ -95,25 +110,56 @@ class Pokemon{
             else {
                 self._type = "NOT FOUND"
             }
-            print("***************************")
-            print(self.name)
-            print(self.height)
-            print(self.weight)
-            print(self.defense)
-        }
+            if let des = dict["descriptions"] as? [Dictionary<String, AnyObject>] {
+                if let resourceUrl = des[0]["resource_uri"] as? String{
+                    let url = "\(PokeURL)\(resourceUrl)"
+                    Alamofire.request(url, withMethod: .get).responseJSON(completionHandler: { (response) in
+                        if let desDict = response.result.value as? Dictionary<String,AnyObject> {
+                            if let descriptions = desDict["description"] as? String{
+                                self._pokeDesciption = descriptions
+                            }
+                        }
+                        else{
+                            self._pokeDesciption = "NOT FOUND"
+                        }
+                    complete()
+                    })
+                }
+            }
+            if let evelution = dict["evolutions"] as? [Dictionary<String, AnyObject>], evelution.count > 0{
+                var nextLevel : String = "15"
+                var nextMethod : String = ""
+                var nextPoke : String = ""
+               if let nextEvo = evelution[0]["to"] as? String{
+                    // coz there is no mega pokemon type in csv file
+                    if nextEvo.range(of: "mega") == nil{
+                        nextPoke = nextEvo
+                        if let resourceUrl = evelution[0]["resource_uri"] as? String{
+                                let index = resourceUrl.index(resourceUrl.endIndex, offsetBy: -2)
+                             let nextId = resourceUrl[index]
+                             self._nextEvelutionID  =  String(nextId)
+                        }
+                        if let level = evelution[0]["level"] as? Int{
+                            nextLevel = String(level)
+                        }
+                        else{
+                            nextLevel = ""
+                        }
+                        if let method = evelution[0]["method"] as? String{
+                            nextMethod = method.capitalized
+                        }
+                        self._nextEvelutionString = "Next Evelution: \(nextPoke) -\(nextMethod) - \(nextLevel)"
+                        print(self.nextEvelutionID)
+                        print(self._nextEvelutionString)
+                    }
+                }
+            }
+            
+            
+    }
         
         complete()
     }
-        
     }
 }
-
-
-
-
-
-
-
-
-
 

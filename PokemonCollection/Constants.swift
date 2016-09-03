@@ -10,3 +10,5 @@ import Foundation
 typealias DownloadComplete = () -> ()
 
 let BASE_URL = "http://pokeapi.co/api/v1/pokemon/"
+
+let PokeURL = "http://pokeapi.co/"

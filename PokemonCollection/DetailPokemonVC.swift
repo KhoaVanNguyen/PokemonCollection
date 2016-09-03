@@ -21,7 +21,7 @@ class DetailPokemonVC: UIViewController {
     @IBOutlet weak var pokemonIdLbl: UILabel!
     @IBOutlet weak var weightLbl: UILabel!
     @IBOutlet weak var baseAttackLbl: UILabel!
-    @IBOutlet weak var revolutionLbl: UILabel!
+    @IBOutlet weak var resolutionLbl: UILabel!
     @IBOutlet weak var currentImage: UIImageView!
     @IBOutlet weak var evolutionImage: UIImageView!
     @IBOutlet weak var pokeTitleLbl: UILabel!
@@ -30,19 +30,30 @@ class DetailPokemonVC: UIViewController {
         super.viewDidLoad()
         mainImage.image = UIImage(named: "\(pokemon.id)")
         currentImage.image = UIImage(named: "\(pokemon.id)")
+       
+
         pokemon.downloadData {
             self.updateUI()
             print("I'm here")
         }
     }
     func updateUI(){
+        pokemonIdLbl.text = "\(pokemon.id)"
         pokeTitleLbl.text = pokemon.name
         defenseLbl.text = String(pokemon.defense)
         baseAttackLbl.text = String(pokemon.baseAttack)
         typeLbl.text = pokemon.type.capitalized
         heightLbl.text = pokemon.height
         weightLbl.text = pokemon.weight
-        
+        descriptionLbl.text = pokemon.pokeDescription
+        if pokemon.nextEvelutionString == ""{
+            resolutionLbl.text = "There is no evelution for this pokemon"
+        }else{
+            resolutionLbl.text = pokemon.nextEvelutionString
+            
+            evolutionImage.image = UIImage(named: "\(pokemon.nextEvelutionID)")
+        }
+
     }
     
     @IBAction func backBtnPressed(_ sender: AnyObject) {

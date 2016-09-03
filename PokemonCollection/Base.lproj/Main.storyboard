@@ -405,7 +405,7 @@
                         <outlet property="mainImage" destination="sTB-iC-wlc" id="Dwd-rN-LeG"/>
                         <outlet property="pokeTitleLbl" destination="H3I-tF-vv1" id="LjX-BB-PiW"/>
                         <outlet property="pokemonIdLbl" destination="kyQ-vl-qe2" id="U5G-xC-EEl"/>
-                        <outlet property="revolutionLbl" destination="yzn-Nf-nM6" id="D8i-OD-nBN"/>
+                        <outlet property="resolutionLbl" destination="yzn-Nf-nM6" id="QXB-f4-MKo"/>
                         <outlet property="typeLbl" destination="gfr-lu-61Z" id="x2O-vA-yWD"/>
                         <outlet property="weightLbl" destination="GjZ-1q-dIt" id="Bmi-Kk-JoB"/>
                     </connections>
