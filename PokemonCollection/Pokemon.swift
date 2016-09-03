@@ -80,10 +80,20 @@ class Pokemon{
             if let name = dict["name"] as? String{
                 self._name = name
             }
-            if let types = dict["types"] as? [Dictionary<String,AnyObject>]{
+            if let types = dict["types"] as? [Dictionary<String,AnyObject>], types.count > 0  {
                 if let name = types[0]["name"] as? String{
-                    self._type = name
+                    self._type = name.capitalized
                 }
+                if types.count > 1{
+                    for x in 1..<types.count{
+                       if let currentType = types[x]["name"] as? String {
+                            self._type! += "/\(currentType.capitalized)"
+                        }
+                    }
+                }
+            }
+            else {
+                self._type = "NOT FOUND"
             }
             print("***************************")
             print(self.name)
